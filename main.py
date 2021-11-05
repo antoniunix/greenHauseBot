@@ -34,7 +34,7 @@ bot = telebot.TeleBot(credencialtelegrambotservice.TOKEN)
 bot.set_update_listener(listener) # register listener
 
 # help page
-@bot.message_handler(command.commands.upper()=['AYUDA','HELP'])
+@bot.message_handler(command.commands=['AYUDA','HELP'])
 def command_help(m):
     cid = m.chat.id
     help_text = "Estos son los comandos disponibles: \n"
