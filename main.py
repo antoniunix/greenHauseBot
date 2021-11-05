@@ -18,12 +18,6 @@ userStep = {} # so they won't reset every time the bot restarts
 
 hideBoard = types.ReplyKeyboardRemove() # if sent as reply_markup, will hide the keyboard
 
-commands = { # command description used in the "help" command
-             'help': 'ayuda',
-             'warm_ground': 'temperatura de la tierra',
-             'warm_air': 'humedad en el aire',
-             'tmp_air': 'temperatura del aire'
-}
 
 # only used for console output now
 def listener(messages):
@@ -40,23 +34,15 @@ bot = telebot.TeleBot(credencialtelegrambotservice.TOKEN)
 bot.set_update_listener(listener) # register listener
 
 # help page
-@bot.message_handler(99commands.upper()=['AYUDA','HELP'})
+@bot.message_handler(command.commands.upper()=['AYUDA','HELP'})
 def command_help(m):
     cid = m.chat.id
     help_text = "Estos son los comandos disponibles: \n"
-    for key in commands:
+    for key in command.commands:
         help_text += "/" + key + ": "
-        help_text += commands[key] + "\n"
+        help_text += command.commands[key] + "\n"
     bot.send_message(cid, help_text)
 
-    # humedad tierra
-@bot.message_handler(commands=['warm_ground'])
-def command_long_text(m):
-    cid = m.chat.id
-    bot.send_message(cid, "obteniendo humedad en tierra ...")
-    bot.send_chat_action(cid, 'typing')
-    time.sleep(3)
-    bot.send_message(cid, "La humedad es de 0.9  !está muy humeda la tierra, detenga el riego¡")
 
 
 # filter on a specific message
